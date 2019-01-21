@@ -1,0 +1,16 @@
+IFILE=Imagetree.i
+#name without the .cpp extension - should be same as module name"
+CPPFILE=Imagetree
+VIRTENVPATH="/home/insanity/.virtualenvs/QTIC/local/include/python2.7/"
+#################Donot Modify below this line #############################
+CPP=.cpp
+CPPFILENAME=$(CPPFILE)$(CPP)
+
+
+build:	
+	swig -c++ -python $(IFILE)
+	g++ -c -fPIC -std=c++11 $(CPPFILE).cpp
+	g++ -c -fPIC "$(CPPFILE)_wrap.cxx" $(python-config --cflags) -I $(VIRTENVPATH)
+	g++ -shared "$(CPPFILE).o" "$(CPPFILE)_wrap.o" $(python-config --ldflags) -o _$(CPPFILE).so
+	echo "Successfully created _$(CPPFILE).so"
+	

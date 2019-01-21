@@ -1,0 +1,3 @@
+opened image
+512 512
+53420.4is the rmse error
