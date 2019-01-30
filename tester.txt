@@ -1,0 +1,103 @@
+opened image
+512 512
+56751.2 is the rmse error
+[94,95,78]	Q:0	I:1	RMSE: 2929.08	 Parent: 0	Me:0x7ffde55cbb20
+[112,112,113]	Q:1	I:1	RMSE: 4687.52	 Parent: 0x7ffde55cbb20	Me:0x7f4500006280
+[132,132,103]	Q:2	I:1	RMSE: 8479.38	 Parent: 0x7ffde55cbb20	Me:0x7f4500006030
+[111,112,114]	Q:3	I:1	RMSE: 10089.6	 Parent: 0x7ffde55cbb20	Me:0x7f4500005d40
+depth: 1 rmse: 10089.6 vector size: 5
+
+
+[75,77,47]	Q:0	I:1	RMSE: 1170.69	 Parent: 0	Me:0x7ffde55cbb20
+[79,79,73]	Q:1	I:1	RMSE: 4253.1	 Parent: 0x7ffde55cbb20	Me:0x7f4500006280
+[107,108,80]	Q:2	I:1	RMSE: 6262.07	 Parent: 0x7ffde55cbb20	Me:0x7f4500006030
+[117,118,113]	Q:3	I:1	RMSE: 10526.9	 Parent: 0x7ffde55cbb20	Me:0x7f4500005d40
+depth: 1 rmse: 10526.9 vector size: 9
+
+
+[98,101,105]	Q:0	I:1	RMSE: 3236.07	 Parent: 0	Me:0x7ffde55cbb20
+[105,107,107]	Q:1	I:1	RMSE: 3663.88	 Parent: 0x7ffde55cbb20	Me:0x7f4500006280
+[107,108,111]	Q:2	I:1	RMSE: 7313.57	 Parent: 0x7ffde55cbb20	Me:0x7f4500006030
+[85,87,92]	Q:3	I:1	RMSE: 9310.62	 Parent: 0x7ffde55cbb20	Me:0x7f4500005d40
+depth: 1 rmse: 9310.62 vector size: 13
+
+
+[206,193,177]	Q:0	I:1	RMSE: 2026.17	 Parent: 0	Me:0x7ffde55cbb20
+[200,187,172]	Q:1	I:1	RMSE: 3342.73	 Parent: 0x7ffde55cbb20	Me:0x7f4500006280
+[145,142,110]	Q:2	I:1	RMSE: 4656.6	 Parent: 0x7ffde55cbb20	Me:0x7f4500006030
+[129,128,96]	Q:3	I:1	RMSE: 6055.97	 Parent: 0x7ffde55cbb20	Me:0x7f4500005d40
+depth: 2 rmse: 6055.97 vector size: 17
+
+
+[142,146,149]	Q:0	I:2	RMSE: 123.328	 Parent: 0	Me:0x7ffde55cbb20
+[135,139,142]	Q:1	I:2	RMSE: 359.52	 Parent: 0x7ffde55cbb20	Me:0x7f4500006280
+[143,147,150]	Q:2	I:2	RMSE: 361.992	 Parent: 0x7ffde55cbb20	Me:0x7f4500006030
+[136,140,143]	Q:3	I:2	RMSE: 373.395	 Parent: 0x7ffde55cbb20	Me:0x7f4500005d40
+depth: 2 rmse: 373.395 vector size: 21
+
+
+[66,63,30]	Q:0	I:2	RMSE: 196.984	 Parent: 0	Me:0x7ffde55cbb20
+[85,83,42]	Q:1	I:2	RMSE: 631.391	 Parent: 0x7ffde55cbb20	Me:0x7f4500006280
+[83,86,39]	Q:2	I:2	RMSE: 676.047	 Parent: 0x7ffde55cbb20	Me:0x7f4500006030
+[89,92,46]	Q:3	I:2	RMSE: 969.172	 Parent: 0x7ffde55cbb20	Me:0x7f4500005d40
+depth: 2 rmse: 969.172 vector size: 25
+
+
+[42,101,240]	Q:0	I:2	RMSE: 57.8125	 Parent: 0	Me:0x7ffde55cbb20
+[48,99,238]	Q:1	I:2	RMSE: 74.125	 Parent: 0x7ffde55cbb20	Me:0x7f4500006280
+[91,128,229]	Q:2	I:2	RMSE: 957.125	 Parent: 0x7ffde55cbb20	Me:0x7f4500006030
+[49,99,243]	Q:3	I:2	RMSE: 969.875	 Parent: 0x7ffde55cbb20	Me:0x7f4500005d40
+depth: 2 rmse: 969.875 vector size: 29
+
+
+[101,103,64]	Q:0	I:2	RMSE: 23	 Parent: 0	Me:0x7ffde55cbb20
+[105,107,68]	Q:1	I:2	RMSE: 29	 Parent: 0x7ffde55cbb20	Me:0x7f4500006280
+[93,93,64]	Q:2	I:2	RMSE: 61	 Parent: 0x7ffde55cbb20	Me:0x7f4500006030
+[82,83,53]	Q:3	I:2	RMSE: 143.5	 Parent: 0x7ffde55cbb20	Me:0x7f4500005d40
+depth: 3 rmse: 143.5 vector size: 33
+
+
+[52,58,44]	Q:0	I:3	RMSE: 0	 Parent: 0	Me:0x7ffde55cbb20
+[61,67,53]	Q:1	I:3	RMSE: 0	 Parent: 0x7ffde55cbb20	Me:0x7f4500006280
+[53,59,45]	Q:2	I:3	RMSE: 0	 Parent: 0x7ffde55cbb20	Me:0x7f4500006030
+[61,67,53]	Q:3	I:3	RMSE: 0	 Parent: 0x7ffde55cbb20	Me:0x7f4500005d40
+depth: 3 rmse: 0 vector size: 37
+
+
+Factor: 2 Depth: 1
+Factor: 2 Depth: 1
+Factor: 2 Depth: 1
+Factor: 2 Depth: 1
+Factor: 2 Depth: 1
+Factor: 2 Depth: 1
+Factor: 2 Depth: 1
+Factor: 2 Depth: 1
+Factor: 2 Depth: 1
+Factor: 2 Depth: 1
+Factor: 2 Depth: 1
+Factor: 2 Depth: 1
+Factor: 2 Depth: 1
+Factor: 2 Depth: 1
+Factor: 2 Depth: 1
+Factor: 2 Depth: 1
+Factor: 4 Depth: 2
+Factor: 4 Depth: 2
+Factor: 4 Depth: 2
+Factor: 4 Depth: 2
+Factor: 4 Depth: 2
+Factor: 4 Depth: 2
+Factor: 4 Depth: 2
+Factor: 4 Depth: 2
+Factor: 4 Depth: 2
+Factor: 4 Depth: 2
+Factor: 4 Depth: 2
+Factor: 4 Depth: 2
+Factor: 4 Depth: 2
+Factor: 4 Depth: 2
+Factor: 4 Depth: 2
+Factor: 4 Depth: 2
+Factor: 8 Depth: 3
+Factor: 8 Depth: 3
+Factor: 8 Depth: 3
+Factor: 8 Depth: 3
+Root Mean Squared Error: 3498.64

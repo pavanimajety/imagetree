@@ -7,7 +7,7 @@
 #include "opencv2/imgproc/imgproc.hpp"
 #include <cstdlib>
 #include <pthread.h>
-#include "Imagetreel.h"
+#include "Imagetree_lib.h"
 
 
 using namespace std;
@@ -43,7 +43,7 @@ int main(int argc, char const *argv[]) {
 
 
 // 
-  Mat imOriginal = imread("Images/facebook.png", CV_LOAD_IMAGE_COLOR);
+  Mat imOriginal = imread("Images/zebra.jpg", CV_LOAD_IMAGE_COLOR);
   // Rect roi(8, 8, imOriginal_.rows - 16, imOriginal_.cols - 16);
   // imOriginal_ = imOriginal_(roi);
   Mat hsvImg;
@@ -72,6 +72,7 @@ int main(int argc, char const *argv[]) {
 
   cvtColor(imOriginal, hsvImg, CV_BGR2HSV);
   imshow("Original Image", imOriginal);
+  auto cahr = waitKey(1000);
   imwrite("Images/original_image.png", imOriginal);
 
   char charCheckForEscKey = cv::waitKey(1);
@@ -99,13 +100,13 @@ int main(int argc, char const *argv[]) {
 
 
 /****STEP 3:  Reconstruction of the image *************/
-  Mat reconstrutedImage = Mat::zeros(threshImg.rows, threshImg.cols, CV_8UC3);
+  Mat reconstrutedImage = Mat::zeros(imOriginal.rows, imOriginal.cols, CV_8UC3);
 
- // itree->reconstructImageFromTree(pixVectors, &reconstrutedImage);
-//   imshow("Reconstructed Image", reconstrutedImage);
-//   cout << "Root Mean Squared Error: "<<calculate_RMSE_ERROR(&imOriginal,&reconstrutedImage)<<endl;
-//   imwrite("Images/recostructed_img.png", reconstrutedImage);
-//   waitKey(1);
+  reconstructImageFromTree(pixVectors, &reconstrutedImage);
+  imshow("Reconstructed Image", reconstrutedImage);
+  cout << "Root Mean Squared Error: "<<calculate_RMSE(&imOriginal,&reconstrutedImage)<<endl;
+  imwrite("Images/recostructed_img.png", reconstrutedImage);
+  waitKey(1);
 
 
 //   itree->killAllSons();
