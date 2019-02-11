@@ -104,7 +104,8 @@ int main(int argc, char const *argv[]) {
 
   reconstructImageFromTree(pixVectors, &reconstrutedImage);
   imshow("Reconstructed Image", reconstrutedImage);
-  cout << "Root Mean Squared Error: "<<calculate_RMSE(&imOriginal,&reconstrutedImage)<<endl;
+  waitKey();
+  cout << "\nRoot Mean Squared Error: "<<calculate_RMSE(&imOriginal,&reconstrutedImage)<<endl;
   imwrite("Images/recostructed_img.png", reconstrutedImage);
   waitKey(1);
 

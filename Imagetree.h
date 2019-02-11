@@ -45,7 +45,10 @@ class Pixel {
   int R;
   int G;
   int B;
+  
 };
+
+void operator<<(ostream &out, const Pixel  &P);
 
 struct PixelDepthQuad {
   Pixel P;

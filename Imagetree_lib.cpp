@@ -358,73 +358,96 @@ void construct_RMSE_LinearQuadtree(vector<PixelDepthQuad *> &pixVectors,
                                    Mat *imOriginal) {
   // get the number of levels
   int DEPTH = calculate_max_depth_of_quadtree(imOriginal);
+  vector<Mat> vec_mat;
 
   // calculate the average pixel value
   // Add the first PixelDepthQuad for representing the entire image
   auto pix_whole = calculate_average_pixel(imOriginal);
   // storing the first value of the pixVector storing the average pixel of the
   // entire value
-  PixelDepthQuad p0{Pixel{pix_whole[0], pix_whole[1], pix_whole[2], 0, 0}, 0, 0,
-                    0, 0};
-  pixVectors.push_back(&p0);
+  PixelDepthQuad root{Pixel{pix_whole[0], pix_whole[1], pix_whole[2], 0, 0}, 0,
+                      0, 0, 0};
+  pixVectors.push_back(&root);
   // calculate the RMSE
   auto rmse = calculate_average_pixel_RMSE(imOriginal, pixVectors[0]->P);
   cout << rmse << " is the rmse error" << endl;
   // if the RMSE is greater than the required keep subdividing
   int WIDTH = imOriginal->cols;
   int HEIGHT = imOriginal->rows;
-  int HWIDTH = imOriginal->cols / 2;
-  int HHEIGHT = imOriginal->rows / 2;
-  int depth = 1;
-  vector<Mat> vec_mat;
+  // int HWIDTH = imOriginal->cols / 2;
+  // int HHEIGHT = imOriginal->rows / 2;
+
+  // temporarily storing the image quadrants until I come up with a differrent
+  // logic
   vec_mat.push_back(*imOriginal);
+
+  // storing the matrix index: here, it is set to one becasue an object is
+  // already pushed.
   int matrix_index = 0;
-  while (rmse > 0.01) {
+  int rex = 20;
+//  while ((rmse > 0.01) && (rex--)) {
+    while ((rmse > 0.01) ) {
+    auto my_current_index = matrix_index;
+    // The current quadrant that is being inspected is given by the matrix index
+    auto HHEIGHT = vec_mat[matrix_index].cols/2;
+    auto HWIDTH = vec_mat[matrix_index].rows/2;
+    auto depth  =  (WIDTH/HWIDTH) - 1 ;
     // divide into four quadrants, calculate the average pixel and subdivide
     // further if necessary.
     vector<Vec3b> avgPixQ(4);
+    cout << "Matrix index: " << matrix_index << " pixVector Size"
+         << pixVectors.size() << endl;
+    cout << "Half width: " << HWIDTH << " Half Height" << HHEIGHT << endl;
 
     Rect NW(0, 0, HWIDTH, HHEIGHT);
     Rect NE(0, HWIDTH, HWIDTH, HHEIGHT);
     Rect SE(HHEIGHT, 0, HWIDTH, HHEIGHT);
     Rect SW(HHEIGHT, HWIDTH, HWIDTH, HHEIGHT);
     Mat quadImages[4];
-    auto my_current_index = matrix_index;
     quadImages[0] = Mat(vec_mat[matrix_index], NW);
     quadImages[1] = Mat(vec_mat[matrix_index], NE);
     quadImages[2] = Mat(vec_mat[matrix_index], SE);
-    quadImages[3] = Mat(vec_mat[matrix_index++], SW);
+    quadImages[3] = Mat(vec_mat[matrix_index], SW);
 
-    int x = 0, y = 0;
     rmse = 0;
     PixelDepthQuad *temp;
     for (int i = 0; i < 4; ++i) {
+      int x, y;
+      
+      // Choosing the quadrant
+      switch (i) {
+        case 0: x = 0; y = 1; break;
+        case 1: x = 1; y = 1; break;
+        case 2: x = 1; y = 0; break;
+        case 3: x = 0; y = 0; break;
+      }
       vec_mat.push_back(quadImages[i]);
       avgPixQ[i] = calculate_average_pixel(&quadImages[i]);
+
       // add the four quadrants to the pixvector table
-      temp = new PixelDepthQuad{Pixel{avgPixQ[i][0], avgPixQ[i][1],
-                                      avgPixQ[i][2], x * HWIDTH, y * HHEIGHT},
-                                depth, i, 0, pixVectors[my_current_index]};
+      PixelDepthQuad *my_parent = pixVectors[my_current_index];
+      // ,   
+      temp = new PixelDepthQuad{
+          Pixel{avgPixQ[i][0], avgPixQ[i][1], avgPixQ[i][2],
+              my_parent->P.x + x * HWIDTH, my_parent->P.y + y * HHEIGHT},
+          depth, i, 0, pixVectors[my_current_index]};
       pixVectors.push_back(temp);
       int ind = pixVectors.size() - 1;
       rmse += calculate_average_pixel_RMSE_vec3b(&quadImages[i], avgPixQ[i]);
-      cout << "[" << pixVectors[ind]->P.B << "," << pixVectors[ind]->P.G << ","
-           << pixVectors[ind]->P.R << "]\tQ:" << pixVectors[ind]->quad
+      cout << pixVectors[i]->P;
+      cout << "\tQ:" << pixVectors[ind]->quad
            << "\tI:" << pixVectors[ind]->depth << "\tRMSE: " << rmse
            << "\t Parent: " << pixVectors[i]->parentPixelDepth
            << "\tMe:" << pixVectors[i] << endl;
-      if (i % 2)
-        ++y;
-      else
-        ++x;
     }
-    HWIDTH /= 2;
-    HHEIGHT /= 2;
+    // HWIDTH /= 2;
+    // HHEIGHT /= 2;
 
-    depth = 1 + matrix_index / 4;
-    cout << "depth: " << depth << " rmse: " << rmse
-         << " vector size: " << vec_mat.size() << "\n\n"
+    // ++depth;
+    cout << "half height: " << HHEIGHT << " depth: " << depth
+         << " rmse: " << rmse << " vector size: " << vec_mat.size() << "\n\n"
          << endl;
+    ++matrix_index;
   }
 }
 
@@ -441,23 +464,34 @@ int calculate_max_depth_of_quadtree(Mat *img) {
 
 void reconstructImageFromTree(vector<PixelDepthQuad *> &pixVector,
                               Mat *reconImage) {
-  for (int i = 1; i < pixVector.size(); ++i) {
+  // for (int i = 30; i >= 1; --i) {
+    int i;
+  for (i = 1; i < pixVector.size(); ++i) {
     // if (pixVector[i]->isLeaf) {
     int factor = pow(2, pixVector[i]->depth);
     // #ifdef DEBUG
-    cout << "Factor: " << factor << " Depth: " << pixVector[i]->depth << endl;
+    // std::cout << "i: " << i << " Factor: " << factor
+    //           << " Depth: " << pixVector[i]->depth
+    //           << " Color: " << pixVector[i]->P;
+    // std::cout << " pixVector's x and y: (" << pixVector[i]->P.x << ","
+    //           << pixVector[i]->P.y << ")\n";
 
     // #endif
     for (int row = pixVector[i]->P.x;
-         row < pixVector[i]->P.x + (reconImage->rows / pow(2, pixVector[i]->depth));
+         row <
+         pixVector[i]->P.x + (reconImage->rows / pow(2, pixVector[i]->depth));
          ++row) {
       for (int col = pixVector[i]->P.y;
-           col < pixVector[i]->P.y + (reconImage->cols / pow(2, pixVector[i]->depth));
+           col <
+           pixVector[i]->P.y + (reconImage->cols / pow(2, pixVector[i]->depth));
            ++col) {
         reconImage->at<Vec3b>(row, col) =
             Vec3b(pixVector[i]->P.R, pixVector[i]->P.G, pixVector[i]->P.B);
+        // if(i==2)   cout<<reconImage->at<Vec3b>(row, col)<<"\n ";
       }
     }
     //}
+    // cv::imshow("Loop Image", *reconImage);
+    // waitKey(3);
   }
 }

@@ -214,3 +214,7 @@ void QuadLeaf::print_tree(vector<PixelDepthQuad*>& pixVector,
   int sizeV = pixVector.size();
   PixelDepthQuad* newParent = pixVector[sizeV - 1];
 }
+
+void operator<<(ostream &out, const Pixel  &P){
+ out<<"["<<P.R<<","<<P.G<<","<<P.B<<"], (x,y): ("<<P.x<<","<<P.y<<")";
+}
